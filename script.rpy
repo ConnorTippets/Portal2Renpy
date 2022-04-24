@@ -33,6 +33,7 @@ pause 1
 scene p2
 pause 1
 scene p3
+pause 1
 scene BLK
 b "BUZZ"
 menu:
