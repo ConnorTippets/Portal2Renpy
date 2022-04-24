@@ -183,4 +183,75 @@ menu:
          jump wheat_yes
 
 label ride:
+a "All reactor core safeguards are now non-functional. Please prepare for reactor core meltdown."
+w "Alright, I wasn't going to mention this to you, but I am in PRETTY HOT WATER here."
+w "How you doing down there? You still holding on?"
+w "The reserve power ran out, so of course the whole relaxation center stops waking up the bloody test subjects."
+w "Hold on! This is a bit tricky!"
+w "And of course nobody tells ME anything. Noooo. Why should they tell me anything?"
+w "Why should I be kept informed about the life functions of the ten thousand bloody test subjects I'm supposed to be in charge of?"
+w "Oi, it's close... can you see? Am I gonna make it through? Have I got enough space?"
+w "Agh, just... I just gotta get it through here..."
+w "Okay, I've just gotta concentrate!"
+w "And whose fault do you think it's going to be when the management comes down here and finds ten thousand flipping vegetables?"
+w "Aggh, see, now I hit that one, I hit that one..."
+w "Okay, listen, we should get our stories straight, alright?"
+w "If anyone asks -- and no one's gonna ask, don't worry -- but if anyone asks, tell them as far as you know, the last time you checked, everyone looked pretty much alive."
+w "Alright? Not dead."
+w "Okay, almost there. On the other side of that wall is one of the old testing tracks."
+w "There's a piece of equipment in there we're gonna need to get out of here. I think this is a docking station. Get ready..."
+w "*smashes cart into wall*"
+w "Good news: that is NOT a docking station. So there's one mystery solved."
+w "I'm going to attempt a manual override on this wall. Could get a bit technical! Hold on!"
+w "*smashes into wall again*"
+w "Almost there! Remember: you're looking for a gun that makes holes."
+w "Not bullet holes, but-- well, you'll figure it out. Really do hold on this time!"
+w "*smashes into wall YET AGAIN*"
+w "Whew. There we go! Now I'll be honest, you are probably in no fit state to run this particular type of cognitive gauntlet."
+w "But... um... at least you're a good jumper. So... you've got that."
+w "You've got the jumping on your side. Just do your best, and I'll meet you up ahead."
+jump wheat_jumping
+
+default whlii = 0
+default whill = ["Alright, off you go!", "Go on. Just... March on through that hole.", "Yeah, it's alright. Go ahead.", "I know I've painted quite a grim picture of your chances. But if you simply stand here, we will both surely die.", "So, once again, just... move along. One small step and everything.", "Go on.", "On ya go.", "Your destination's probably not going to come meet us here. Is it? So go on."]
+
+label wheat_jumping:
+menu:
+   "Jump":
+      w "That's the spirit!"
+      w "Good luck!"
+      jump relaxation
+   "...":
+      if whlii > len(whill)-1:
+         menu:
+            "Jump":
+               w "That's the spirit!"
+               w "Good luck!"
+               jump relaxation
+      else:
+         $ wsy = whill[whlii]
+         w "[wsy]"
+         $ whlii = whlii + 1
+         jump wheat_jumping2
+
+label wheat_jumping2:
+menu:
+   "Jump":
+      w "That's the spirit!"
+      w "Good luck!"
+      jump relaxation
+   "...":
+      if whlii > len(whill)-1:
+         menu:
+            "Jump":
+               w "That's the spirit!"
+               w "Good luck!"
+               jump relaxation
+      else:
+         $ wsy = whill[whlii]
+         w "[wsy]"
+         $ whlii = whlii + 1
+         jump wheat_jumping
+
+label relaxation:
 w "placeholder"
