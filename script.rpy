@@ -24,6 +24,9 @@ image p2:
 image p3:
    "images/pause3.png"
 
+image wheatley:
+   "images/wheatley.png"
+
 label start:
 scene BLK
 a "Good morning. You have been in suspension for -FIFTY- days. In compliance with state and federal regulations, all testing candidates in the Aperture Science Extended Relaxation Center must be revived periodically for a mandatory physical and mental wellness exercise."
@@ -91,10 +94,12 @@ with Dissolve(1)
 scene BLK
 with Dissolve(1)
 a "Good morning. You have been in suspension for nine nine nine nine nine..."
+show wheatley at truecenter
+with Dissolve(0.2)
 w "Hello? Anyone in there?"
 jump wheat_loop
 
-default to_self = "to self"
+
 default whli = 0
 default whil = ["Helloooo?", "Are you going to open the door? At any time?", "Hello? Can y--no?", "Are you going to open this door? Because it's fairly urgent.", "Oh, just open the door! [to self] That's too aggressive. Hello, friend! Why not open the door?", "[to self] Hm. Could be Spanish, could be Spanish. Hola, amigo! Abre la pureta! Donde esta--no. Um...", "Fine! No, absolutely fine. It's not like I don't have, you know, ten thousand other test subjects begging me to help them escape. You know, it's not like this place is about to EXPLODE.", "Alright, look, okay, I'll be honest. You're the LAST test subject left. And if you DON'T help me, we're both going to die. Alright? I didn't want to say it, you dragged it out of me. Alright? Dead. Dos Muerte."]
 label wheat_loop:
@@ -131,7 +136,16 @@ menu:
          $ whli = whli + 1
          jump wheat_loop
 
+transform trueright:
+   yalign 0.5
+   xalign 1.0
+
+transform center_to_right:
+   linear 3.0 yalign 0.5 xalign 0.5
+   linear 3.0 yalign 0.5 xalign 1.0
+
 label broken_door:
+show wheatley at trueright
 w "HA! I knew someone was alive in here."
 w "AH! Oh. My. God. You look terribl-- ummm... good. Looking good, actually."
 w "Are you okay? Are you - Don't answer that. I'm absolutely sure you're fine. There's plenty of time for you to recover. Just take it slow."
@@ -254,4 +268,161 @@ menu:
          jump wheat_jumping
 
 label relaxation:
-w "placeholder"
+hide wheatley
+a "Hello, and again, welcome to the Aperture Science Enrichment Center."
+a "We are currently experiencing technical difficulties due to circumstances of potentially apocalyptic significance beyond our control."
+a "However, thanks to Emergency Testing Protocols, testing can continue."
+a "These pre-recorded messages will provide instructional and motivational support."
+a "So that science can still be done, even in the event of environmental, social, economic, or structural collapse."
+a "The portal will open and emergency testing will begin in three. Two. One."
+a "Cube- and button-based testing remains an important tool for science, even in a dire emergency."
+a "If cube- and button-based testing caused this emergency, don't worry."
+a "The odds of this happening twice are very slim."
+a "Please note the incandescent particle field across the exit."
+a "This Aperture Science Material Emancipation Grill will vaporize any unauthorized equipment that passes through it."
+"You look around. You see a door in front of you, a cube to the side, and a button directly in front of you."
+
+label testchamb0men:
+menu:
+   "Go to the exit":
+      "The puzzle is not solved. Try again."
+      jump testchamb0men
+   "Pick up the cube":
+      "You have picked up a cube."
+      jump testchamb0men1
+   "Stand on the button":
+      "The door opens, but when you try to go in, it closes. Try again."
+      jump testchamb0men
+
+label testchamb0men1:
+menu:
+   "Go to the exit":
+      "The puzzle is not solved. Try again."
+      jump testchamb0men1
+   "Stand on the button":
+      "The door opens, but when you try to go in, it closes. Try again."
+      jump testchamb0men1
+   "Put the cube on the button":
+      "The door opens, and stays open."
+      jump testchamb0men2
+
+label testchamb0men2:
+menu:
+   "Go to the exit":
+      "The puzzle is solved. Go through."
+      jump testchamb1
+
+label testchamb1:
+a "If you feel liquid running down your neck, relax, lie on your back, and apply immediate pressure to your temples."
+a "You are simply experiencing a rare reaction in which the Material Emancipation Grill may have emancipated the ear tubes inside your head."
+"You look around. You see three buttons on pedestals that you assume you have to hit."
+"You also see three glass containers with a standing button, an exit, and a cube."
+
+default testchamb1cube = False
+default testchamb1empty = False
+label testchamb1men:
+menu:
+   "Press the button":
+      "A portal opens behind you."
+      jump testchamb1menp1
+   "Press the button":
+      "A portal opens behind you."
+      jump testchamb1menp2
+   "Press the button":
+      "A portal opens behind you."
+      jump testchamb1menp3
+
+label testchamb1menp1:
+menu:
+   "Go through the portal":
+      "The portal leads you to a room with a button."
+      if not testchamb1cube:
+         jump testchamb1menpd110
+      else:
+         jump testchamb1menpd111
+   "Press the button":
+      "A portal changes behind you."
+      jump testchamb1menp2
+   "Press the button":
+      "A portal changes behind you."
+      jump testchamb1menp3
+
+label testchamb1menpd110:
+menu:
+   "Stand on the button":
+      "The door opens, but its impossible to get from here to the door without it closing."
+      jump testchamb1menpd110
+   "Go back through the portal":
+      "You're back to the room with the three buttons."
+      jump testchamb1menp1
+
+label testchamb1menpd111:
+menu:
+   "Stand on the button":
+      "The door opens, but its impossible to get from here to the door without it closing."
+      jump testchamb1menpd111
+   "Put the cube on the button":
+      "The door opens, and stays open"
+   "Go back through the portal":
+      "You're back to the room with the three buttons."
+      jump testchamb1menp1
+
+label testchamb1menp2:
+menu:
+   "Press the button":
+      "A portal changes behind you."
+      jump testchamb1menp1
+   "Go through the portal":
+      "The portal leads you to a room with a door."
+      if not testchamb1cube:
+         "The puzzle is not solved. Go back."
+         jump testchamb1menp2
+      else:
+         "The puzzle is solved. You go through."
+         jump testchamb1end
+   "Press the button":
+      "A portal changes behind you."
+      jump testchamb1menp3
+
+label testchamb1menp3:
+menu:
+   "Press the button":
+      "A portal changes behind you."
+      jump testchamb1menp1
+   "Press the button":
+      "A portal changes behind you."
+      jump testchamb1menp2
+   "Go through the portal":
+      if not testchamb1cube:
+         "The portal leads you to a room with a cube."
+         jump testchamb1menpd31
+      else:
+         "The portal leads to an empty room (Hint: go to the door room)"
+         $ testchamb1empty = True
+         jump testchamb1menpd32
+
+label testchamb1menpd31:
+menu:
+   "Pick up the cube":
+      "You have picked up a cube"
+      $ testchamb1cube = True
+      jump testchamb1menpd32
+   "Go through the portal":
+      "You're back in the room with the three buttons."
+      jump testchamb1men
+
+label testchamb1menpd32:
+menu:
+   "Go through the portal":
+      if testchamb1empty:
+         "You're back in the room with the three buttons."
+         jump testchamb1menp3
+      else:
+         "After collecting the cube, you're back in the room with the three buttons."
+         jump testchamb1menp3
+
+label testchamb1end:
+a "Good!"
+a "Because of the technical difficulties we are currently experiencing, your test environment is unsupervised."
+a "Before re-entering a relaxation vault at the conclusion of testing, please take a moment to write down the results of your test."
+a "An Aperture Science Reintegration Associate will revive you for an interview when society has been rebuilt."
